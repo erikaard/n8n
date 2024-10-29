@@ -1,7 +1,9 @@
 export const DEFAULT_OPERATIONS = ['create', 'read', 'update', 'delete', 'list'] as const;
 export const RESOURCES = {
+	annotationTag: [...DEFAULT_OPERATIONS] as const,
 	auditLogs: ['manage'] as const,
 	banner: ['dismiss'] as const,
+	community: ['register'] as const,
 	communityPackage: ['install', 'uninstall', 'update', 'list', 'manage'] as const,
 	credential: ['share', 'move', ...DEFAULT_OPERATIONS] as const,
 	externalSecretsProvider: ['sync', ...DEFAULT_OPERATIONS] as const,

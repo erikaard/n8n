@@ -3,6 +3,7 @@ export namespace ChatUI {
 		role: 'assistant' | 'user';
 		type: 'text';
 		content: string;
+		codeSnippet?: string;
 	}
 
 	export interface SummaryBlock {
@@ -32,12 +33,14 @@ export namespace ChatUI {
 	export interface QuickReply {
 		type: string;
 		text: string;
+		isFeedback?: boolean;
 	}
 
 	export interface ErrorMessage {
 		role: 'assistant';
 		type: 'error';
 		content: string;
+		retry?: () => Promise<void>;
 	}
 
 	export interface AgentSuggestionMessage {

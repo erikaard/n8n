@@ -5,8 +5,10 @@ import type { Scope } from '@n8n/permissions';
 describe('permissions', () => {
 	it('getResourcePermissions for empty scopes', () => {
 		expect(getResourcePermissions()).toEqual({
+			annotationTag: {},
 			auditLogs: {},
 			banner: {},
+			community: {},
 			communityPackage: {},
 			credential: {},
 			externalSecretsProvider: {},
@@ -58,8 +60,10 @@ describe('permissions', () => {
 		];
 
 		const permissionRecord: PermissionsRecord = {
+			annotationTag: {},
 			auditLogs: {},
 			banner: {},
+			community: {},
 			communityPackage: {},
 			credential: {
 				create: true,

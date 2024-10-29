@@ -1,29 +1,3 @@
-<template>
-	<div>
-		<aside
-			:class="{
-				[$style.nodeCreatorScrim]: true,
-				[$style.active]: showScrim,
-			}"
-		/>
-		<SlideTransition>
-			<div
-				v-if="active"
-				ref="nodeCreator"
-				:class="{ [$style.nodeCreator]: true }"
-				:style="nodeCreatorInlineStyle"
-				data-test-id="node-creator"
-				@dragover="onDragOver"
-				@drop="onDrop"
-				@mousedown="onMouseDown"
-				@mouseup="onMouseUp"
-			>
-				<NodesListPanel @node-type-selected="onNodeTypeSelected" />
-			</div>
-		</SlideTransition>
-	</div>
-</template>
-
 <script setup lang="ts">
 import { watch, reactive, toRefs, computed, onBeforeUnmount } from 'vue';
 
@@ -127,8 +101,8 @@ watch(
 );
 
 // Close node creator when the last view stacks is closed
-watch(viewStacksLength, (viewStacksLength) => {
-	if (viewStacksLength === 0) {
+watch(viewStacksLength, (value) => {
+	if (value === 0) {
 		emit('closeNodeCreator');
 		setShowScrim(false);
 	}
@@ -163,6 +137,32 @@ onBeforeUnmount(() => {
 });
 </script>
 
+<template>
+	<div>
+		<aside
+			:class="{
+				[$style.nodeCreatorScrim]: true,
+				[$style.active]: showScrim,
+			}"
+		/>
+		<SlideTransition>
+			<div
+				v-if="active"
+				ref="nodeCreator"
+				:class="{ [$style.nodeCreator]: true }"
+				:style="nodeCreatorInlineStyle"
+				data-test-id="node-creator"
+				@dragover="onDragOver"
+				@drop="onDrop"
+				@mousedown="onMouseDown"
+				@mouseup="onMouseUp"
+			>
+				<NodesListPanel @node-type-selected="onNodeTypeSelected" />
+			</div>
+		</SlideTransition>
+	</div>
+</template>
+
 <style module lang="scss">
 :global(strong) {
 	font-weight: var(--font-weight-bold);
@@ -173,7 +173,7 @@ onBeforeUnmount(() => {
 	top: $header-height;
 	bottom: 0;
 	right: 0;
-	z-index: 200;
+	z-index: var(--z-index-node-creator);
 	width: $node-creator-width;
 	color: $node-creator-text-color;
 }
