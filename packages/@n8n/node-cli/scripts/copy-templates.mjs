@@ -1,17 +1,11 @@
-#!/usr/bin/env node
-
-import glob from 'fast-glob';
-import { cp } from 'node:fs/promises';
+import { fileURLToPath } from 'url';
 import path from 'path';
 
-const templateFiles = glob.sync(['src/template/templates/**/*'], {
-	cwd: path.resolve(import.meta.dirname, '..'),
-	ignore: ['**/node_modules', '**/dist'],
-	dot: true,
-});
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-await Promise.all(
-	templateFiles.map((template) =>
-		cp(template, `dist/${template.replace('src/', '')}`, { recursive: true }),
-	),
-);
+const templateFiles = glob.sync(['src/template/templates/**/*'], {
+  cwd: path.resolve(__dirname, '..'),
+  ignore: ['**/node_modules', '**/dist'],
+  dot: true,
+});
